@@ -4,6 +4,15 @@ import { printError, printHelp, printSuccess } from "./services/log.services.js"
 import { saveKeyValue } from "./services/storage.services.js";
 
 
+const saveToken = async (token) => {
+    try {
+        await saveKeyValue('token', token)
+        printSuccess('Success token saving')
+    } catch (e) {
+        printError(e.message)
+    }
+}
+
 const initCLI = () => {
     const args = getArgs(process.argv)
 
@@ -14,8 +23,7 @@ const initCLI = () => {
         //save sity
     }
     if (args.t) {
-        saveKeyValue('token', args.t)
-        //save token
+        saveToken(args.t)
     }
     // Log weather
 }
