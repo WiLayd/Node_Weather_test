@@ -1,6 +1,5 @@
-
 import { getArgs } from "./helpers/args.js";
-import { printError, printHelp, printSuccess } from "./services/log.services.js";
+import { printError, printHelp, printSuccess, printWeather } from "./services/log.services.js";
 import { saveKeyValue, TOKEN_DICTIONARY } from "./services/storage.services.js";
 import { getWeather } from "./services/api.services.js";
 
@@ -18,6 +17,30 @@ const saveToken = async (token) => {
     }
 }
 
+const saveCity = async (city) => {
+    if (!city.length) {
+        printError('Token is undefined')
+        return;
+    }
+    try {
+        await saveKeyValue(TOKEN_DICTIONARY.city, city)
+        printSuccess('Success city saving')
+    } catch (e) {
+        printError(e.message)
+    }
+}
+
+const getForcast = async () => {
+    try {
+        const weather = await getWeather('Вінниця');
+        printWeather(weather)
+        //console.log(weather)
+    } catch (e) {
+        printError(e.message)
+    }
+
+}
+
 const initCLI = () => {
     const args = getArgs(process.argv)
 
@@ -25,12 +48,12 @@ const initCLI = () => {
         printHelp()
     }
     if (args.s) {
-        (getWeather('Vinnytsia').then(res => console.log(res)));
-        //save sity
+        saveCity(args.s)
     }
     if (args.t) {
         saveToken(args.t)
     }
+    getForcast()
     // Log weather
 }
 

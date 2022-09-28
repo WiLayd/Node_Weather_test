@@ -20,4 +20,18 @@ const printHelp = () => {
     );
 }
 
-export { printError, printHelp, printSuccess }
+const printWeather = (weather) => {
+    console.log(
+        dedent`${chalk.bgBlue(`Погода у місті ${weather.name}`)}
+        Завтра у ${weather.name} очікуєтсья: ${weather.weather.pop().description}
+        Температура повітря складатиме: ${weather.main.temp} °C та відчуватиметься як: ${weather.main.feels_like} °C
+        Швидкість вітру складатиме: ${weather.wind.speed} км/год
+        Вологість повітря складатиме: ${weather.main.humidity}%
+        Бережіть себе!
+        `
+    );
+}
+
+
+
+export { printError, printHelp, printSuccess, printWeather }
