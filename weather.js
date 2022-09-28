@@ -25,7 +25,7 @@ const initCLI = () => {
         printHelp()
     }
     if (args.s) {
-        getWeather('Vinnytsia');
+        (getWeather('Vinnytsia').then(res => console.log(res)));
         //save sity
     }
     if (args.t) {

@@ -26,8 +26,7 @@ const getWeather = async (city) => { // Get info about weather in the City
 
     const data = await fetch(url)
     const res = await data.json()
-    console.log(res);
-    //return res;
+    return res;
 
 }
 
